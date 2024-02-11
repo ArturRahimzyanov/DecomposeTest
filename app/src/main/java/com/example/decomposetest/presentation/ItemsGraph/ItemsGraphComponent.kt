@@ -9,6 +9,8 @@ interface ItemsGraphComponent {
 
     val childStack: Value<ChildStack<*, Child>>
 
+    fun onItemClicked()
+
     sealed class Child {
         class ItemsListChild(val component: ItemsListComponent): Child()
         class DetailsChild(val component: DetailsComponent): Child()

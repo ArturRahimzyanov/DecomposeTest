@@ -3,4 +3,25 @@
     <string name="main">main</string>
     <string name="profile">main</string>
     <string name="find">введите слово для поиска</string>
+    <string name="about_app">О приложении</string>
+    <string name="test_app">Тестовое задание на позицию Junior Android Developer</string>
+    <string name="details_app2">Приложение позволяет искать фотографии по запросу к API от сайта giphy.com, запрос лучше писать на английском, например android </string>
+    <string name="details_app3"> - включена пагинация данных(при скролле до конца списка происходит запрос в сеть и список обновляется) </string>
+    <string name="details_app4"> - включен DI koin создал data-модуль включающий retrofit и тд </string>
+    <string name="details_app5"> - Использована библиотека Decompose</string>
+    <string name="about_me">О разработчике</string>
+    <string name="about_me2">Рахимзянов Артур, 🏢Коммерческий опыт : 1г
+
+💻 Мой стек:
+• Jetpack Compose, Android SDK
+• retrofit, ktor
+• SQL, Room, SQLdelight
+• dagger-hilt, koin
+• coroutines, flow
+• GIT
+• Bluetooth(BLE)
+
+Также проходил 2-ух  месячную  стажировку  в  компании "СТЦ", велась разработка на KMM(подключал moko - библиотеки, sqldelight, ) </string>
+    <string name="details_info">Подробные данные</string>
+
 </resources>

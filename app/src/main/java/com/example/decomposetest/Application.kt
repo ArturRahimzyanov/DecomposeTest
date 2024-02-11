@@ -3,6 +3,7 @@ package com.example.decomposetest
 import android.app.Application
 import android.util.Log
 import com.example.decomposetest.di.dataModule
+import com.example.decomposetest.di.domainKoinModule
 import dagger.hilt.android.HiltAndroidApp
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext
@@ -14,7 +15,7 @@ class Application: Application() {
 
         startKoin {
             androidContext(this@Application)
-            modules(dataModule)
+            modules(dataModule, domainKoinModule)
         }
     }
 }

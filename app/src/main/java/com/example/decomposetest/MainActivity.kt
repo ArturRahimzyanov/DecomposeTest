@@ -18,38 +18,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.core.view.WindowCompat
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.arkivanov.decompose.defaultComponentContext
 import com.arkivanov.decompose.extensions.compose.jetpack.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetpack.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.jetpack.stack.animation.stackAnimation
 import com.arkivanov.decompose.extensions.compose.jetpack.subscribeAsState
-import com.example.decomposetest.di.Repository
+import com.example.decomposetest.domain.repository.Repository
 import com.example.decomposetest.presentation.ItemsGraph.ItemGraphScreen
-import com.example.decomposetest.presentation.card.CardsContent
-import com.example.decomposetest.root.DefaultRootComponent
-import com.example.decomposetest.root.RootComponent
+import com.example.decomposetest.presentation.about_app.AboutAppContent
+import com.example.decomposetest.presentation.root.DefaultRootComponent
+import com.example.decomposetest.presentation.root.RootComponent
 import com.example.decomposetest.presentation.theme.Dark_ColdSteelLight_1
 import com.example.decomposetest.presentation.theme.Dark_ColdSteelLight_4
 import com.example.decomposetest.presentation.theme.DecomposeTestTheme
 import com.example.decomposetest.presentation.theme.back
 import com.example.decomposetest.presentation.theme.surface
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
-import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.GlobalContext.startKoin
-import kotlin.coroutines.coroutineContext
 
 
 class MainActivity : ComponentActivity() {
@@ -57,7 +48,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val repository: Repository by inject()
-        val root = DefaultRootComponent(repository ,defaultComponentContext())
+        val coroutineScope: CoroutineScope by inject()
+        val root = DefaultRootComponent(
+            repository = repository,
+            componentContext = defaultComponentContext(),
+            coroutineScope = coroutineScope
+        )
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -108,8 +104,8 @@ private fun Children(component: RootComponent, modifier: Modifier = Modifier) {
                     .background(back)
             )
 
-            is RootComponent.Child.CardsChild -> CardsContent(
-                component = child.component, modifier = Modifier
+            is RootComponent.Child.CardsChild -> AboutAppContent(
+                 modifier = Modifier
                     .fillMaxSize()
                     .background(back)
             )

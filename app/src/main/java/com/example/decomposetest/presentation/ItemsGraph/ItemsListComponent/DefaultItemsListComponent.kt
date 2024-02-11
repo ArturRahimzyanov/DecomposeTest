@@ -1,50 +1,56 @@
 package com.example.decomposetest.presentation.ItemsGraph.ItemsListComponent
 
-import android.util.Log
+import androidx.compose.ui.unit.IntOffset
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.update
-import com.example.decomposetest.di.Repository
-import com.example.decomposetest.model.Data
-import com.example.decomposetest.model.ExampleJson2KtKotlin
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.PersistentList
+import com.example.decomposetest.domain.repository.Repository
+import com.example.decomposetest.domain.model.Data
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import okhttp3.internal.immutableListOf
 
 class DefaultItemsListComponent (
     componentContext: ComponentContext,
+    private val coroutineScope: CoroutineScope,
     private val repository: Repository,
+    private val navigation : (Data) -> Unit,
 ) : ItemsListComponent, ComponentContext by componentContext {
 
-    override val model = MutableValue(ItemsListComponent.Model(text = "", null))
+    private var offset = 0
 
-    override fun onItemClicked(item: String) {
+    override val model = MutableValue(ItemsListComponent.Model(text = "", persistentListOf()))
 
+    override fun onItemClicked(data: Data) {
+        navigation(data)
+    }
+
+    init {
+        coroutineScope.launch {
+           getGifs()
+        }
     }
 
     override fun textChanged(newString: String) {
         model.update { it.copy(text = newString) }
+    }
 
-        var a : PersistentList<Data> = persistentListOf()
-
-        CoroutineScope(Dispatchers.IO).launch {
-
-            CoroutineScope(Dispatchers.IO).async {
-                repository.getGifs(newString)
-            }.await().let {
-                Log.e("logs", "let $it")
-                a = it.toPersistentList()
-            }
+    override fun pagination() {
+        coroutineScope.launch {
+            offset+= 10
+            getGifs()
         }
+    }
 
-        model.update {
-            it.copy(exampleJson2KtKotlin = a)
+    private suspend fun getGifs(){
+        coroutineScope.async {
+            repository.getGifs(limit = 10, offset = offset)
+        }.await().let { it1 ->
+            model.update {
+                it.copy(dataPersistentList = model.value.dataPersistentList?.addAll(it1.data.toPersistentList()) )
+            }
         }
     }
 }

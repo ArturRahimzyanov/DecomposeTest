@@ -1,4 +1,4 @@
-package com.example.decomposetest.root
+package com.example.decomposetest.presentation.root
 
 import android.os.Parcelable
 import com.arkivanov.decompose.ComponentContext
@@ -7,13 +7,14 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
-import com.example.decomposetest.di.Repository
+import com.example.decomposetest.domain.repository.Repository
 import com.example.decomposetest.presentation.ItemsGraph.ItemsGraphComponentImpl
-import com.example.decomposetest.presentation.card.DefaultCardsComponent
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.parcelize.Parcelize
 
 class DefaultRootComponent(
     private val repository: Repository,
+    private val coroutineScope: CoroutineScope,
     componentContext: ComponentContext,
 ): RootComponent, ComponentContext by componentContext {
 
@@ -23,7 +24,7 @@ class DefaultRootComponent(
         childStack(
             source = navigation,
             initialConfiguration = Config.Cards,
-            handleBackButton = true,
+            handleBackButton = false,
             childFactory = ::child,
         )
 
@@ -32,9 +33,13 @@ class DefaultRootComponent(
     private fun child(config: Config, componentContext: ComponentContext): RootComponent.Child =
         when (config) {
             is Config.ItemsGraph -> RootComponent.Child.ItemsGraphChild(
-                ItemsGraphComponentImpl(repository, componentContext)
+                ItemsGraphComponentImpl(
+                    repository = repository,
+                    componentContext = componentContext,
+                    coroutineScope = coroutineScope,
+                )
             )
-            is Config.Cards -> RootComponent.Child.CardsChild(DefaultCardsComponent(componentContext))
+            is Config.Cards -> RootComponent.Child.CardsChild
         }
 
     override fun onItemsGraphsClicked() {

@@ -1,9 +1,8 @@
-package com.example.decomposetest.root
+package com.example.decomposetest.presentation.root
 
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 import com.example.decomposetest.presentation.ItemsGraph.ItemsGraphComponent
-import com.example.decomposetest.presentation.card.CardsComponent
 
 interface RootComponent {
 
@@ -14,6 +13,6 @@ interface RootComponent {
 
     sealed class Child {
         class ItemsGraphChild(val component: ItemsGraphComponent) : Child()
-        class CardsChild(val component: CardsComponent) : Child()
+        data object CardsChild : Child()
     }
 }
