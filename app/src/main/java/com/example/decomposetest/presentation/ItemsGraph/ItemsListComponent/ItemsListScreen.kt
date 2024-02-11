@@ -16,15 +16,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,27 +47,6 @@ import com.example.decomposetest.presentation.theme.surface
 fun ItemsListScreen(component: ItemsListComponent, modifier: Modifier) {
 
     val state = component.model.subscribeAsState()
-    val scrollState = rememberLazyListState()
-
-    val isAtBottom by remember {
-        derivedStateOf {
-            val visibleItemsInfo = scrollState.layoutInfo.visibleItemsInfo
-            if (scrollState.layoutInfo.totalItemsCount == 0) {
-                false
-            } else {
-                val lastVisibleItem = visibleItemsInfo.last()
-                val viewportHeight = scrollState.layoutInfo.viewportEndOffset + scrollState.layoutInfo.viewportStartOffset
-
-                (lastVisibleItem.index + 1 == scrollState.layoutInfo.totalItemsCount &&
-                        lastVisibleItem.offset + lastVisibleItem.size <= viewportHeight)
-            }
-        }
-    }
-    
-    LaunchedEffect(key1 = isAtBottom) {
-        component.pagination()
-    }
-
 
     LazyColumn(modifier.padding(horizontal = 16.dp, vertical = 24.dp)) {
 
@@ -186,6 +160,7 @@ fun GifItem(
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
                 maxLines = 1,
+                style = input
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -195,6 +170,7 @@ fun GifItem(
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
                 maxLines = 1,
+                style = input
             )
         }
     }
