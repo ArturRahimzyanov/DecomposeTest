@@ -1,11 +1,10 @@
 package com.example.decomposetest.presentation.ItemsGraph.ItemsListComponent
 
-import androidx.compose.ui.unit.IntOffset
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.update
-import com.example.decomposetest.domain.repository.Repository
 import com.example.decomposetest.domain.model.Data
+import com.example.decomposetest.domain.repository.Repository
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.CoroutineScope

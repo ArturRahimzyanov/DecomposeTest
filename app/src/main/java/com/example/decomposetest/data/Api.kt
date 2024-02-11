@@ -17,7 +17,5 @@ interface Api {
 
     companion object {
         const val BASE_URL = "https://api.giphy.com/"
-        const val Api_Key = "api_key=WEWvCoe7W4MyEkPxJLmRxPdRNbJte63R"
-        const val Bundle = "messaging_non_clips"
     }
 }
