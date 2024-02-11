@@ -62,7 +62,7 @@ fun AboutAppContent(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = stringResource(R.string.details_app3),
+            text = stringResource(R.string.details_app4),
             color = Color.White,
             style = TextStyle(
                 fontWeight = FontWeight.SemiBold,
@@ -74,7 +74,7 @@ fun AboutAppContent(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = stringResource(R.string.details_app4),
+            text = stringResource(id = R.string.details_app3),
             color = Color.White,
             style = TextStyle(
                 fontWeight = FontWeight.SemiBold,

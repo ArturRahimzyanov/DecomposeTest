@@ -1,5 +1,6 @@
 package com.example.decomposetest.presentation.ItemsGraph.ItemsListComponent
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,6 +34,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -53,26 +56,6 @@ fun ItemsListScreen(component: ItemsListComponent, modifier: Modifier) {
 
     val state = component.model.subscribeAsState()
     val scrollState = rememberLazyListState()
-
-    val isAtBottom by remember {
-        derivedStateOf {
-            val visibleItemsInfo = scrollState.layoutInfo.visibleItemsInfo
-            if (scrollState.layoutInfo.totalItemsCount == 0) {
-                false
-            } else {
-                val lastVisibleItem = visibleItemsInfo.last()
-                val viewportHeight = scrollState.layoutInfo.viewportEndOffset + scrollState.layoutInfo.viewportStartOffset
-
-                (lastVisibleItem.index + 1 == scrollState.layoutInfo.totalItemsCount &&
-                        lastVisibleItem.offset + lastVisibleItem.size <= viewportHeight)
-            }
-        }
-    }
-    
-    LaunchedEffect(key1 = isAtBottom) {
-        component.pagination()
-    }
-
 
     LazyColumn(modifier.padding(horizontal = 16.dp, vertical = 24.dp)) {
 
@@ -186,6 +169,7 @@ fun GifItem(
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
                 maxLines = 1,
+                style = input
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -195,6 +179,7 @@ fun GifItem(
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
                 maxLines = 1,
+                style = input
             )
         }
     }

@@ -9,12 +9,11 @@ class RepositoryImpl(private val api: Api): Repository {
 
     override var data: Data? = null
 
-    override suspend fun getGifs(limit: Int, offset: Int): GifsArray {
-        return api.searchGifs(API_KEY, QUERY, limit, offset).body()!!
+    override suspend fun getGifs(limit: Int, offset: Int, q: String): GifsArray {
+        return api.searchGifs(API_KEY, q, limit, offset).body()!!
     }
 
     companion object {
         const val API_KEY = "WEWvCoe7W4MyEkPxJLmRxPdRNbJte63R"
-        val QUERY = "robot"
     }
 }

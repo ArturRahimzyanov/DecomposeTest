@@ -7,4 +7,5 @@ import androidx.compose.ui.unit.sp
 val input: TextStyle = TextStyle(
     fontWeight = FontWeight.W400,
     fontSize = 14.sp,
+    color = Dark_ColdSteelLight_1
 )

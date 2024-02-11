@@ -7,5 +7,5 @@ interface Repository {
 
     var data: Data?
 
-    suspend fun getGifs( limit: Int, offset: Int): GifsArray
+    suspend fun getGifs( limit: Int, offset: Int, q: String): GifsArray
 }

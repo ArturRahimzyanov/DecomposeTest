@@ -12,8 +12,6 @@ interface ItemsListComponent {
 
     fun textChanged(newString: String)
 
-    fun pagination()
-
 
     data class Model(
         val text: String,
