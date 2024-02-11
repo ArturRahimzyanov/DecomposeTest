@@ -48,7 +48,6 @@ import com.example.decomposetest.presentation.theme.surface
 fun ItemsListScreen(component: ItemsListComponent, modifier: Modifier) {
 
     val state = component.model.subscribeAsState()
-    val scrollState = rememberLazyListState()
 
     LazyColumn(modifier.padding(horizontal = 16.dp, vertical = 24.dp)) {
 
