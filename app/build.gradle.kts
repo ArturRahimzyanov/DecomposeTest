@@ -54,7 +54,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
@@ -70,10 +69,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
     implementation("com.arkivanov.decompose:decompose:2.2.2")
     implementation("com.arkivanov.decompose:extensions-compose-jetpack:2.2.2")
-    //implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.compose.material:material:1.6.1")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -85,9 +82,8 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("io.coil-kt:coil-gif:2.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.5")
-
 }
-// Allow references to generated code
+
 kapt {
     correctErrorTypes = true
 }

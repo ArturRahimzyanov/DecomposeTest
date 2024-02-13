@@ -12,14 +12,15 @@ import com.example.decomposetest.presentation.ItemsGraph.DetailsComponent.Defaul
 import com.example.decomposetest.presentation.ItemsGraph.ItemsListComponent.DefaultItemsListComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.parcelize.Parcelize
+import org.koin.java.KoinJavaComponent
+
 
 class ItemsGraphComponentImpl(
-    private val repository: Repository,
-    private val coroutineScope: CoroutineScope,
     componentContext: ComponentContext,
 ): ItemsGraphComponent, ComponentContext by componentContext {
 
     private val navigation = StackNavigation<Config>()
+    private val repository: Repository by KoinJavaComponent.inject(Repository::class.java)
 
     private val stack : Value<ChildStack<*, ItemsGraphComponent.Child>> = childStack(
         source = navigation,
@@ -36,8 +37,6 @@ class ItemsGraphComponentImpl(
             is Config.ItemsListChild -> ItemsGraphComponent.Child.ItemsListChild(
                 DefaultItemsListComponent(
                     componentContext = componentContext,
-                    repository = repository,
-                    coroutineScope = coroutineScope,
                     navigation = {
                         repository.data = it
                         navigation.bringToFront(Config.ItemDetailsChild)

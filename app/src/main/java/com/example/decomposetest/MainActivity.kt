@@ -47,13 +47,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val repository: Repository by inject()
-        val coroutineScope: CoroutineScope by inject()
-        val root = DefaultRootComponent(
-            repository = repository,
-            componentContext = defaultComponentContext(),
-            coroutineScope = coroutineScope
-        )
+        val root = DefaultRootComponent(defaultComponentContext())
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
