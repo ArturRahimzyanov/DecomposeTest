@@ -29,7 +29,6 @@ import com.arkivanov.decompose.extensions.compose.jetpack.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetpack.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.jetpack.stack.animation.stackAnimation
 import com.arkivanov.decompose.extensions.compose.jetpack.subscribeAsState
-import com.example.decomposetest.domain.repository.Repository
 import com.example.decomposetest.presentation.ItemsGraph.ItemGraphScreen
 import com.example.decomposetest.presentation.about_app.AboutAppContent
 import com.example.decomposetest.presentation.root.DefaultRootComponent
@@ -39,21 +38,13 @@ import com.example.decomposetest.presentation.theme.Dark_ColdSteelLight_4
 import com.example.decomposetest.presentation.theme.DecomposeTestTheme
 import com.example.decomposetest.presentation.theme.back
 import com.example.decomposetest.presentation.theme.surface
-import kotlinx.coroutines.CoroutineScope
-import org.koin.android.ext.android.inject
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val repository: Repository by inject()
-        val coroutineScope: CoroutineScope by inject()
-        val root = DefaultRootComponent(
-            repository = repository,
-            componentContext = defaultComponentContext(),
-            coroutineScope = coroutineScope
-        )
+        val root = DefaultRootComponent(defaultComponentContext())
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 

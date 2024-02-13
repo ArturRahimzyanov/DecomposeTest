@@ -29,5 +29,6 @@ val dataModule = module {
         }
     }
     single { provideApi(json = get()) }
+    
 }
 

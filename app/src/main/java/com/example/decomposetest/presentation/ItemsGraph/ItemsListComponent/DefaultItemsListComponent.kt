@@ -12,18 +12,17 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.java.KoinJavaComponent.inject
 
-class DefaultItemsListComponent (
+class DefaultItemsListComponent(
     componentContext: ComponentContext,
-    private val coroutineScope: CoroutineScope,
-    private val repository: Repository,
-    private val navigation : (Data) -> Unit,
+    private val navigation: (Data) -> Unit,
 ) : ItemsListComponent, ComponentContext by componentContext {
 
     override val model = MutableValue(ItemsListComponent.Model(text = "", persistentListOf()))
-
+    private val repository: Repository by inject(Repository::class.java)
+    private val coroutineScope: CoroutineScope by inject(CoroutineScope::class.java)
     private var job: Job? = null
-
 
     override fun onItemClicked(data: Data) {
         navigation(data)
@@ -55,12 +54,12 @@ class DefaultItemsListComponent (
         }
     }
 
-    private suspend fun getInitGifs(){
+    private suspend fun getInitGifs() {
         coroutineScope.async {
             repository.getGifs(limit = 20, offset = 0, "android")
         }.await().let { it1 ->
             model.update {
-                it.copy(dataPersistentList = model.value.dataPersistentList?.addAll(it1.data.toPersistentList()) )
+                it.copy(dataPersistentList = model.value.dataPersistentList?.addAll(it1.data.toPersistentList()))
             }
         }
     }

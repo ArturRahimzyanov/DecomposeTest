@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Images (
-    @SerialName("original") var original : Original? = Original(),
+    @SerialName("original") val original : Original = Original(),
 )

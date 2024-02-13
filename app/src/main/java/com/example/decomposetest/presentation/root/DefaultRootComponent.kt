@@ -7,14 +7,10 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
-import com.example.decomposetest.domain.repository.Repository
 import com.example.decomposetest.presentation.ItemsGraph.ItemsGraphComponentImpl
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.parcelize.Parcelize
 
 class DefaultRootComponent(
-    private val repository: Repository,
-    private val coroutineScope: CoroutineScope,
     componentContext: ComponentContext,
 ): RootComponent, ComponentContext by componentContext {
 
@@ -24,7 +20,7 @@ class DefaultRootComponent(
         childStack(
             source = navigation,
             initialConfiguration = Config.Cards,
-            handleBackButton = false,
+            handleBackButton = true,
             childFactory = ::child,
         )
 
@@ -33,11 +29,7 @@ class DefaultRootComponent(
     private fun child(config: Config, componentContext: ComponentContext): RootComponent.Child =
         when (config) {
             is Config.ItemsGraph -> RootComponent.Child.ItemsGraphChild(
-                ItemsGraphComponentImpl(
-                    repository = repository,
-                    componentContext = componentContext,
-                    coroutineScope = coroutineScope,
-                )
+                ItemsGraphComponentImpl(componentContext)
             )
             is Config.Cards -> RootComponent.Child.CardsChild
         }
