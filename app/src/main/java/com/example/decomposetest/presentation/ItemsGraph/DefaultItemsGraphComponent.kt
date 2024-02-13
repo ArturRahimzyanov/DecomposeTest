@@ -10,7 +10,6 @@ import com.arkivanov.decompose.value.Value
 import com.example.decomposetest.domain.repository.Repository
 import com.example.decomposetest.presentation.ItemsGraph.DetailsComponent.DefaultDetailsComponent
 import com.example.decomposetest.presentation.ItemsGraph.ItemsListComponent.DefaultItemsListComponent
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.parcelize.Parcelize
 import org.koin.java.KoinJavaComponent
 
