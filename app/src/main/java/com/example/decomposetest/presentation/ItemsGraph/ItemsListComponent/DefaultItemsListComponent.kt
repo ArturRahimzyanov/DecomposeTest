@@ -3,8 +3,6 @@ package com.example.decomposetest.presentation.ItemsGraph.ItemsListComponent
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.update
-import com.arkivanov.essenty.lifecycle.Lifecycle
-import com.arkivanov.essenty.lifecycle.doOnPause
 import com.arkivanov.essenty.lifecycle.doOnStop
 import com.arkivanov.essenty.lifecycle.subscribe
 import com.example.decomposetest.R
