@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
-    id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
     id("kotlinx-serialization")
 }
@@ -74,8 +73,6 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.compose.material:material:1.6.1")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
     implementation("io.insert-koin:koin-androidx-compose:3.4.0")

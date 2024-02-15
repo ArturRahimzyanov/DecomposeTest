@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class GifsArray (
-    @SerialName("data") val data : ArrayList<Data> = arrayListOf(),
+    @SerialName("data") val data : List<Data> = arrayListOf(),
 )
 

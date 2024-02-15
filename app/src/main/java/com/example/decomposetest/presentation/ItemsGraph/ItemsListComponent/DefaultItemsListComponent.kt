@@ -3,6 +3,12 @@ package com.example.decomposetest.presentation.ItemsGraph.ItemsListComponent
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.update
+import com.arkivanov.essenty.lifecycle.Lifecycle
+import com.arkivanov.essenty.lifecycle.doOnPause
+import com.arkivanov.essenty.lifecycle.doOnStop
+import com.arkivanov.essenty.lifecycle.subscribe
+import com.example.decomposetest.R
+import com.example.decomposetest.di.ResourcesProvider
 import com.example.decomposetest.domain.model.Data
 import com.example.decomposetest.domain.repository.Repository
 import kotlinx.collections.immutable.persistentListOf
@@ -10,6 +16,7 @@ import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
@@ -20,8 +27,11 @@ class DefaultItemsListComponent(
 ) : ItemsListComponent, ComponentContext by componentContext {
 
     override val model = MutableValue(ItemsListComponent.Model(text = "", persistentListOf()))
+    
     private val repository: Repository by inject(Repository::class.java)
     private val coroutineScope: CoroutineScope by inject(CoroutineScope::class.java)
+    private val resourcesProvider: ResourcesProvider by inject(ResourcesProvider::class.java)
+
     private var job: Job? = null
 
     override fun onItemClicked(data: Data) {
@@ -29,8 +39,12 @@ class DefaultItemsListComponent(
     }
 
     init {
-        coroutineScope.launch {
-            getInitGifs()
+        coroutineScope.launch { getInitGifs() }
+
+        this.lifecycle.subscribe {
+            doOnStop {
+                coroutineScope.cancel()
+            }
         }
     }
 
@@ -48,7 +62,7 @@ class DefaultItemsListComponent(
                 repository.getGifs(limit = 20, offset = 0, model.value.text)
             }.await().let { it1 ->
                 model.update {
-                    it.copy(dataPersistentList = it1.data.toPersistentList())
+                    it.copy(dataPersistentList = it1.success?.data?.data?.toPersistentList())
                 }
             }
         }
@@ -56,10 +70,10 @@ class DefaultItemsListComponent(
 
     private suspend fun getInitGifs() {
         coroutineScope.async {
-            repository.getGifs(limit = 20, offset = 0, "android")
+            repository.getGifs(limit = 20, offset = 0, resourcesProvider.string(R.string.android) )
         }.await().let { it1 ->
             model.update {
-                it.copy(dataPersistentList = model.value.dataPersistentList?.addAll(it1.data.toPersistentList()))
+                   it.copy(dataPersistentList = it1.success?.data?.data?.toPersistentList())
             }
         }
     }

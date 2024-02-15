@@ -8,5 +8,5 @@ import org.koin.dsl.module
 
 
 val domainKoinModule =  module {
-    single { CoroutineScope(SupervisorJob() + Dispatchers.IO) }
+    single { CoroutineScope(Dispatchers.IO) }
 }

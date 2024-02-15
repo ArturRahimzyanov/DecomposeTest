@@ -1,5 +1,6 @@
 package com.example.decomposetest.domain.repository
 
+import com.example.decomposetest.data.RepositoryResponse
 import com.example.decomposetest.domain.model.Data
 import com.example.decomposetest.domain.model.GifsArray
 
@@ -7,5 +8,5 @@ interface Repository {
 
     var data: Data?
 
-    suspend fun getGifs( limit: Int, offset: Int, q: String): GifsArray
+    suspend fun getGifs( limit: Int, offset: Int, q: String): RepositoryResponse<GifsArray>
 }
