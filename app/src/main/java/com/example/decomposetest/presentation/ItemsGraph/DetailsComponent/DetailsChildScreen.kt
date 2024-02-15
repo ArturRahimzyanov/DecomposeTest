@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,9 +36,12 @@ import com.example.decomposetest.presentation.theme.back
 fun DetailsChildScreen(component: DetailsComponent, modifier: Modifier) {
 
     val state = component.model.subscribeAsState()
+    val scrollState = rememberScrollState()
 
     Column(
-        modifier = modifier.padding(48.dp),
+        modifier = modifier
+            .verticalScroll(scrollState)
+            .padding(48.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -56,7 +61,7 @@ fun DetailsChildScreen(component: DetailsComponent, modifier: Modifier) {
 
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(state.value.data?.images?.original?.url ?: "https://ak.picdn.net/shutterstock/videos/1012691939/thumb/1.jpg")
+                .data(state.value.data?.images?.original?.url)
                 .scale(Scale.FIT)
                 .crossfade(true)
                 .build(),
@@ -79,7 +84,7 @@ fun DetailsChildScreen(component: DetailsComponent, modifier: Modifier) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = state.value.data?.title ?:"Источник скрыт",
+                text = state.value.data?.title ?: stringResource(R.string.source_hidden),
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
                 maxLines = 1,
@@ -88,7 +93,7 @@ fun DetailsChildScreen(component: DetailsComponent, modifier: Modifier) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = state.value.data?.source ?: "Источник скрыт",
+                text = state.value.data?.source ?: stringResource(R.string.source_hidden),
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
                 maxLines = 1,
@@ -97,7 +102,7 @@ fun DetailsChildScreen(component: DetailsComponent, modifier: Modifier) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = state.value.data?.trendingDatetime ?: "Дата скрыта",
+                text = state.value.data?.trendingDatetime ?: stringResource(R.string.date_hidden),
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
                 maxLines = 1,
@@ -106,7 +111,7 @@ fun DetailsChildScreen(component: DetailsComponent, modifier: Modifier) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = state.value.data?.url ?: "Источник скрыт",
+                text = state.value.data?.url ?: stringResource(R.string.source_hidden),
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
                 maxLines = 1,
@@ -115,7 +120,7 @@ fun DetailsChildScreen(component: DetailsComponent, modifier: Modifier) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = state.value.data?.slug ?: "Источник скрыт",
+                text = state.value.data?.slug ?: stringResource(R.string.source_hidden),
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
                 maxLines = 1,

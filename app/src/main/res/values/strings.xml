@@ -24,5 +24,11 @@
 
 Также проходил 2-ух  месячную  стажировку  в  компании "СТЦ", велась разработка на KMM(подключал moko - библиотеки, sqldelight, ) </string>
     <string name="details_info">Подробные данные</string>
+    <string name="source_hidden">Источник скрыт</string>
+    <string name="date_hidden">Дата скрыта</string>
+    <string name="undefined">Неизвестная ошибка</string>
+    <string name="request_error">Ошибка запроса</string>
+    <string name="connection_error">Разрыв соединения</string>
+
 
 </resources>
